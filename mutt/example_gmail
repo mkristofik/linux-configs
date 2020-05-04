@@ -1,0 +1,17 @@
+set imap_user = '[your-email-address]'
+set realname = '[your-full-name]'
+# This is either your plaintext password or an API key if your account requires 2FA.
+set imap_pass = '********'
+set from = 'Your Name <your.email@gmail.com>'
+
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set ssl_force_tls = yes
+
+set smtp_url = 'smtps://your.email@gmail.com@smtp.gmail.com:465/'
+# Same as imap_pass
+set smtp_pass = '********'
+set record = ""
+
+# vim: ft=muttrc

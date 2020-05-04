@@ -1,0 +1,54 @@
+source ~/.mutt/my_gmail
+
+# Don't ask, just delete (and gmail's settings will just archive it)
+set delete = yes
+
+# Suppress the "press any key to continue" when shelling out to other programs.
+set wait_key = no
+
+# Display html emails with lynx.
+set mailcap_path = "~/.mutt/mailcap"
+auto_view text/html
+
+# Set cache directory to not have to re-download mail.
+set header_cache = "~/.mutt/cache"
+set message_cachedir = "~/.mutt/cache"
+
+# Newest message on the top
+set sort = threads
+set sort_aux = reverse-date
+
+set forward_format = "Fwd: %s"
+set send_charset = "us-ascii:utf-8"
+
+# Stop at the end of reading a message, don't jump to the next one.
+set pager_stop = yes
+
+# + = message was not addressed to me (maybe Bcc?)
+# <blank> = message was only addressed to me
+# T = I'm on the To: list
+# C = I'm on the CC: list
+# F = message from self
+# L = I'm subscribed to the mailing list in the To: header
+set to_chars = "+ TCFL"
+
+# This is the default minus the message numbering at the start of the line and
+# allows some more space for the sender's name.
+set index_format = "%Z %{%b %d} %-25.25L (%?l?%4l&%4c?) %s"
+
+bind pager n search-next
+bind pager N search-opposite
+bind pager j next-line
+bind pager k previous-line
+bind pager - noop
+bind index <space> next-page
+bind index,pager  previous-page
+macro pager,attach \cB <pipe-entry>'lynx -stdin'<enter> "open in lynx"
+#macro pager d <delete-message><exit> "delete message, return to index"
+
+# Switch between accounts
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/my_gmail<enter><change-folder>!<enter>' "Switch to my gmail"
+macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/family_gmail<enter><change-folder>!<enter>' "Switch to family gmail"
+
+# Color scheme based on https://github.com/altercation/mutt-colors-solarized
+source ~/.mutt/colors_solarized
