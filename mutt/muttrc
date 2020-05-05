@@ -21,6 +21,16 @@ set sort_aux = reverse-date
 set forward_format = "Fwd: %s"
 set send_charset = "us-ascii:utf-8"
 
+# Don't bother asking for To: and Subject: when replying.
+set fast_reply = yes
+set include = yes
+set reply_to = yes
+
+# "On May 4, 2020 at 04:56 PM, <author> wrote:"
+# %D is needed instead of default %d to convert time to local time zone.
+set date_format = "%b %d, %Y at %I:%M %p"
+set attribution = "On %D, %n wrote:"
+
 # Stop at the end of reading a message, don't jump to the next one.
 set pager_stop = yes
 
@@ -33,14 +43,16 @@ set pager_stop = yes
 set to_chars = "+ TCFL"
 
 # This is the default minus the message numbering at the start of the line and
-# allows some more space for the sender's name.
-set index_format = "%Z %{%b %d} %-25.25L (%?l?%4l&%4c?) %s"
+# allows some more space for the sender's name. %[] converts the date to the
+# local time zone.
+set index_format = "%Z %[%b %d] %-25.25L (%?l?%4l&%4c?) %s"
 
 bind pager n search-next
 bind pager N search-opposite
 bind pager j next-line
 bind pager k previous-line
 bind pager - noop
+bind pager <backtab> previous-new-then-unread
 bind index <space> next-page
 bind index,pager  previous-page
 macro pager,attach \cB <pipe-entry>'lynx -stdin'<enter> "open in lynx"
