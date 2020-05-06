@@ -1,0 +1,5 @@
+# Environment variables common to any linux environment.
+
+export EDITOR=vim
+
+# vim: ft=sh

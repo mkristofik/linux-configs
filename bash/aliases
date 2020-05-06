@@ -1,0 +1,13 @@
+# Custom bash aliases and functions.
+
+# turn on colors, avoid unsightly quotes for filenames with spaces
+# https://superuser.com/questions/1376351/why-does-ls-wrap-some-filenames-in-single-quotes
+alias ls='ls --color=auto -N'
+alias grep='grep --color=auto'
+
+function unzipmp3 {
+    MUSIC_DIR="/home/kristo/Music/downloads"
+    unzip -j "$1" -d $MUSIC_DIR && cd $MUSIC_DIR
+}
+
+# vim: ft=sh

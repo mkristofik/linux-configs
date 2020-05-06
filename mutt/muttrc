@@ -64,3 +64,6 @@ macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/family_gmail<enter
 
 # Color scheme based on https://github.com/altercation/mutt-colors-solarized
 source ~/.mutt/colors_solarized
+
+# Example mail alias
+alias me My Name <email@example.com>
