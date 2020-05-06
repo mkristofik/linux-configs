@@ -18,6 +18,11 @@ fi
 ```
 - `profile`, environment variables common to any linux environment
 
+## git
+
+Run the commands in `gitconfig` to set up your global config. This file is not
+executable because you'll have to enter personal info.
+
 ## lynx
 
 1. Copy `lynxrc` to your home directory and name it `.lynxrc`. This file sets
@@ -45,3 +50,7 @@ cp muttrc mailcap colors_solarized ~/.mutt
 The first line of `muttrc` sources the mail account config. See `example_gmail`
 for a sample file to start from. You'll also want to modify the image line of
 `mailcap` to be a suitable image viewer.
+
+## vim
+
+Vim gets its own repository: https://github.com/mkristofik/vimfiles
