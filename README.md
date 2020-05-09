@@ -21,7 +21,8 @@ fi
 ### Explaining how the prompt is set
 
 I've spent way too much time over the past two days researching how the bash
-prompt works.  Let's try to break down the default prompt on Ubuntu:
+prompt works.  Let's try to break down how the default prompt on Ubuntu is set
+in `.bashrc`:
 
 ```bash
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -75,6 +76,10 @@ PROMPT_COMMAND='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/
 
 Run the commands in `gitconfig` to set up your global config. This file is not
 executable because you'll have to enter personal info.
+
+Source `git-prompt.sh` in your `.bashrc` to get a function for displaying an
+indication that a git repo has modified files.  Add `$(git_title)` to your
+`$PS1` or `$PROMPT_COMMAND` as desired.
 
 ## lynx
 
