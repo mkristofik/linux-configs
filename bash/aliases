@@ -1,9 +1,15 @@
 # Custom bash aliases and functions.
 
-# turn on colors, avoid unsightly quotes for filenames with spaces
+# Turn on colors, avoid unsightly quotes for filenames with spaces
 # https://superuser.com/questions/1376351/why-does-ls-wrap-some-filenames-in-single-quotes
 alias ls='ls --color=auto -N'
 alias grep='grep --color=auto'
+
+# Set the terminal window title when running mutt or lynx. Only works if we
+# have an xterm-compatible terminal. The default $PS1 will restore it when
+# bash prints the next prompt after we exit.
+alias email="if [[ $TERM =~ xterm ]]; then printf \"\033]0;mutt\007\"; fi; mutt"
+alias www="if [[ $TERM =~ xterm ]]; then printf \"\033]0;lynx\007\"; fi; lynx"
 
 function unzipmp3 {
     MUSIC_DIR="/home/kristo/Music/downloads"
