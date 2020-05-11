@@ -77,9 +77,9 @@ PROMPT_COMMAND='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/
 Run the commands in `gitconfig` to set up your global config. This file is not
 executable because you'll have to enter personal info.
 
-Source `git-prompt.sh` in your `.bashrc` to get a function for displaying an
-indication that a git repo has modified files.  Add `$(git_title)` to your
-`$PS1` or `$PROMPT_COMMAND` as desired.
+Source `git-prompt.sh` in your `.bashrc` to get functions for displaying
+information about the current git repository.  Add any or all of these to
+`$PROMPT_COMMAND` for a fancy inline prompt.
 
 ## lynx
 
