@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Custom bash aliases and functions.
 
 # Turn on colors, avoid unsightly quotes for filenames with spaces
@@ -11,9 +13,42 @@ alias grep='grep --color=auto'
 alias email="if [[ $TERM =~ xterm ]]; then printf \"\033]0;mutt\007\"; fi; mutt"
 alias www="if [[ $TERM =~ xterm ]]; then printf \"\033]0;lynx\007\"; fi; lynx"
 
-function unzipmp3 {
+
+# Images transferred from a phone are in one flat directory.  This function
+# generates a script to organize them by month, as Windows 10 does.
+sortpics() {
+    local f=`mktemp --tmpdir="." -t "sortpics.XXXXXX"`
+    chmod +x $f
+    echo "sortpics: Automatically sort image files into subdirectories by creation date."
+    echo
+    echo "Commands to run are output to $f"
+    echo "Execute this file if you're happy with the contents."
+
+    local img=
+    local line=
+    for img in *.JPG *.PNG; do
+        while IFS= read -r line; do
+            # Organize pictures by month like Windows 10 does.
+            local date_yyyymm=${line:0:7}
+            echo "mkdir -p \"$date_yyyymm\"" >> $f
+            echo "mv \"$img\" \"$date_yyyymm\"" >> $f
+
+            # iOS may have edits files associated with images, move those too.
+            local edits="${img/%JPG/AAE}"
+            if [[ "$edits" != "$img" && -f "$edits" ]]; then
+                echo "mv \"$edits\" \"$date_yyyymm\"" >> $f
+            fi
+            break
+        # Read the modify date for each file.
+        done < <(stat --format="%y" "$img" 2> /dev/null)
+    done
+    echo "rm \"$f\"" >> $f
+}
+
+
+# Amazon music downloads come in a zip file.  This is a shortcut for unzipping
+# them to a directory where I can process the tags and run mp3gain.
+unzipmp3() {
     MUSIC_DIR="/home/kristo/Music/downloads"
     unzip -j "$1" -d $MUSIC_DIR && cd $MUSIC_DIR
 }
-
-# vim: ft=sh
