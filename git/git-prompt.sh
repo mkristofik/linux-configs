@@ -5,7 +5,7 @@
 # files don't count).
 # note: <() is a shell redirection that we intend to read from. The other <
 # pipes it as input to the loop.
-function git_title {
+git_title() {
     local line=""
     while IFS= read -r line; do
         if [[ ! $line =~ '??' ]]; then
@@ -20,7 +20,7 @@ function git_title {
 # this function to $PROMPT_COMMAND in your .bashrc. I tried really hard to make
 # this return a string you could embed in $PS1 directly but I couldn't figure
 # it out. So we're resorting to this way instead.
-function git_status_prompt {
+git_status_prompt() {
     # First time through, save the original prompt so we can restore it for
     # non-git directories.
     if [[ -z $PS1_ORIG ]]; then
@@ -87,7 +87,7 @@ function git_status_prompt {
 # Output the current branch name, or nothing if this isn't a git repo.
 # The line in the git status output looks like "## master...origin/master" and
 # we want to return just master.
-function git_branch_name {
+git_branch_name() {
     local line=""
     while IFS= read -r line; do
         if [[ $line =~ '##' ]]; then
