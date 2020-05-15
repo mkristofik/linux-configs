@@ -27,9 +27,28 @@ sortpics() {
     local img=
     local line=
     for img in *.JPG *.PNG; do
-        while IFS= read -r line; do
+        local date_yyyymm=""
+
+        # TODO: this is pretty slow, try it with the Python3 Pillow module
+        # Need to copy files from iPhone with -a to preserve file attributes
+        # like modification time.
+
+        # Parse the exif data if available.
+        # Example: exif:DateTimeOriginal: 2019:11:02 21:41:21
+        local exif_date=$(identify -verbose "$img" 2> /dev/null | grep DateTimeOriginal)
+        if [[ $exif_date ]]; then
+            local exif_date_month=${exif_date:27:7}
+            date_yyyymm=${exif_date_month/:/-}
+        fi
+
+        # Fall back to file system modification time if necessary.
+        if [[ -z $date_yyyymm ]]; then
+            local stat_date=$(stat --format="%y" "$img" 2> /dev/null)
+            date_yyyymm=${stat_date:0:7}
+        fi
+
+        if [[ $date_yyyymm ]]; then
             # Organize pictures by month like Windows 10 does.
-            local date_yyyymm=${line:0:7}
             echo "mkdir -p \"$date_yyyymm\"" >> $f
             echo "mv \"$img\" \"$date_yyyymm\"" >> $f
 
@@ -38,9 +57,7 @@ sortpics() {
             if [[ "$edits" != "$img" && -f "$edits" ]]; then
                 echo "mv \"$edits\" \"$date_yyyymm\"" >> $f
             fi
-            break
-        # Read the modify date for each file.
-        done < <(stat --format="%y" "$img" 2> /dev/null)
+        fi
     done
     echo "rm \"$f\"" >> $f
 }
