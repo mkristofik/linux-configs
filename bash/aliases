@@ -14,55 +14,6 @@ alias email="if [[ $TERM =~ xterm ]]; then printf \"\033]0;mutt\007\"; fi; mutt"
 alias www="if [[ $TERM =~ xterm ]]; then printf \"\033]0;lynx\007\"; fi; lynx"
 
 
-# Images transferred from a phone are in one flat directory.  This function
-# generates a script to organize them by month, as Windows 10 does.
-sortpics() {
-    local f=`mktemp --tmpdir="." -t "sortpics.XXXXXX"`
-    chmod +x $f
-    echo "sortpics: Automatically sort image files into subdirectories by creation date."
-    echo
-    echo "Commands to run are output to $f"
-    echo "Execute this file if you're happy with the contents."
-
-    local img=
-    local line=
-    for img in *.JPG *.PNG; do
-        local date_yyyymm=""
-
-        # TODO: this is pretty slow, try it with the Python3 Pillow module
-        # Need to copy files from iPhone with -a to preserve file attributes
-        # like modification time.
-
-        # Parse the exif data if available.
-        # Example: exif:DateTimeOriginal: 2019:11:02 21:41:21
-        local exif_date=$(identify -verbose "$img" 2> /dev/null | grep DateTimeOriginal)
-        if [[ $exif_date ]]; then
-            local exif_date_month=${exif_date:27:7}
-            date_yyyymm=${exif_date_month/:/-}
-        fi
-
-        # Fall back to file system modification time if necessary.
-        if [[ -z $date_yyyymm ]]; then
-            local stat_date=$(stat --format="%y" "$img" 2> /dev/null)
-            date_yyyymm=${stat_date:0:7}
-        fi
-
-        if [[ $date_yyyymm ]]; then
-            # Organize pictures by month like Windows 10 does.
-            echo "mkdir -p \"$date_yyyymm\"" >> $f
-            echo "mv \"$img\" \"$date_yyyymm\"" >> $f
-
-            # iOS may have edits files associated with images, move those too.
-            local edits="${img/%JPG/AAE}"
-            if [[ "$edits" != "$img" && -f "$edits" ]]; then
-                echo "mv \"$edits\" \"$date_yyyymm\"" >> $f
-            fi
-        fi
-    done
-    echo "rm \"$f\"" >> $f
-}
-
-
 # Amazon music downloads come in a zip file.  This is a shortcut for unzipping
 # them to a directory where I can process the tags and run mp3gain.
 unzipmp3() {

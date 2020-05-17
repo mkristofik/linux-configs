@@ -1,5 +1,6 @@
 # Environment variables common to any linux environment.
 
+export BROWSER=firefox
 export EDITOR=vim
 
 # vim: ft=sh

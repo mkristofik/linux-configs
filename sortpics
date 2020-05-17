@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Images transferred from a phone will all be in one flat directory, ~/Pictures.
+Sort image files into directories by YYYY-MM date just like Windows 10 does.
+
+requires: pip3 install exifread
+"""
+
+import collections
+import exifread
+import glob
+import os
+import time
+
+
+# Return the date the picture was taken.
+def get_yyyy_mm(filename):
+    with open(filename, 'rb') as img:
+        tags = exifread.process_file(img)
+        dt = tags.get('EXIF DateTimeOriginal')
+        if dt:
+            return str(dt)[0:7].replace(':', '-')
+        # If no exif tags were found, use last modified date as a fallback.
+        return time.strftime('%Y-%m', time.localtime(os.path.getmtime(filename)))
+
+
+# Create a list of files for each directory.
+def distribute(filesByMonth, filename):
+    dirToUse = get_yyyy_mm(filename)
+    filesByMonth[dirToUse].append(filename)
+
+    # iOS stores modifications to base image in a separate file, keep them together.
+    aaeFile = filename[0:-3] + 'AAE'
+    if os.path.isfile(aaeFile):
+        filesByMonth[dirToUse].append(aaeFile)
+
+
+if __name__ == '__main__':
+    filesByMonth = collections.defaultdict(list)
+    for img in glob.iglob('*.PNG'):
+        distribute(imgsByMonth, img)
+    for img in glob.iglob('*.JPG'):
+        distribute(filesByMonth, img)
+
+    for dirToUse, images in filesByMonth.items():
+        if not os.path.isdir(dirToUse):
+            os.mkdir(dirToUse, 0o775)
+        for img in images:
+            os.replace(img, os.path.join(dirToUse, img))
