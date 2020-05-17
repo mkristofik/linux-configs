@@ -20,6 +20,9 @@ git_title() {
 # this function to $PROMPT_COMMAND in your .bashrc. I tried really hard to make
 # this return a string you could embed in $PS1 directly but I couldn't figure
 # it out. So we're resorting to this way instead.
+#
+# Set GIT_PROMPT_SHOWBRANCH=1 in your .bashrc to display the current branch
+# name too.
 git_status_prompt() {
     # First time through, save the original prompt so we can restore it for
     # non-git directories.
@@ -79,7 +82,12 @@ git_status_prompt() {
 
     # Strip off the trailing bit of the base prompt ("\$ ") and insert the git
     # status info, then restore it.
-    local git_status="${nocolor}|${branch}${nocolor}|${indicator}${nocolor}|"
+    local git_status=""
+    if [[ $GIT_PROMPT_SHOWBRANCH ]]; then
+        git_status="${nocolor}|${branch}${nocolor}|${indicator}${nocolor}|"
+    else
+        git_status="${nocolor}|${indicator}${nocolor}|"
+    fi
     PS1="${PS1_ORIG:0:-3}${git_status}\$ "
 }
 
