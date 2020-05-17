@@ -17,6 +17,8 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 ```
 - `profile`, environment variables common to any linux environment
+- `sortpics`, utility for sorting image files into directories by date.  Copy
+  this to `~/bin` or other directory in your `$PATH`.
 
 ### Explaining how the prompt is set
 
@@ -80,6 +82,9 @@ executable because you'll have to enter personal info.
 Source `git-prompt.sh` in your `.bashrc` to get functions for displaying
 information about the current git repository.  Add any or all of these to
 `$PROMPT_COMMAND` for a fancy inline prompt.
+
+Run `pip3 install grip` to install a utility for viewing Markdown files before
+they're published to GitHub.
 
 ## lynx
 
