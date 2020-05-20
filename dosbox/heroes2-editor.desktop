@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Heroes 2 Editor
+Comment=Heroes of Might and Magic II Editor
+Exec=dosbox-x -conf ~/dosbox.conf -conf ~/git/linux-configs/dosbox/heroes2-editor.conf
+Icon=heroes2-editor
+Terminal=false
+Type=Application
+Categories=Game

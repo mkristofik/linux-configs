@@ -74,6 +74,17 @@ PROMPT_COMMAND='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/
 * `${PWD/#$HOME/\~}` replaces your home directory with `~` if it appears at the
   beginning of `$PWD`
 
+## DOSBox
+
+1. Install DOSBox-X from the [Snap Store](https://snapcraft.io/dosbox-x).
+1. `cp /path/to-this-repo/dosbox/dosbox.conf ~` sets the default general config
+   for all games.
+1. `cp /path/to-this-repo/dosbox/*.desktop ~/.local/share/applications` adds
+   Start Menu entries.  These will call game-specific `.conf` files in this
+   repo.  You may have to modify the path to these files in `*.desktop`.
+1. `sudo cp /path/to-this-repo/dosbox/*.png /usr/share/pixmaps` provides Start
+   Menu icons.
+
 ## git
 
 Run the commands in `gitconfig` to set up your global config. This file is not

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Sim City 2000
+Exec=dosbox-x -conf ~/dosbox.conf -conf ~/git/linux-configs/dosbox/sc2000.conf
+Icon=sc2000
+Terminal=false
+Type=Application
+Categories=Game
