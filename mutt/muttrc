@@ -57,6 +57,7 @@ bind index <space> next-page
 bind index,pager  previous-page
 macro pager,attach \cB <pipe-entry>'lynx -stdin'<enter> "open in lynx"
 #macro pager d <delete-message><exit> "delete message, return to index"
+macro attach \cS <save-entry><bol>~/Downloads/<eol> "download attachment"
 
 # Switch between accounts
 macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/my_gmail<enter><change-folder>!<enter>' "Switch to my gmail"
