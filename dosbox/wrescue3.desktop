@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Word Rescue 3
+Exec=dosbox-x -conf ~/dosbox.conf -conf ~/git/linux-configs/dosbox/wrescue3.conf
+Terminal=false
+Type=Application
+Categories=Education;Game
