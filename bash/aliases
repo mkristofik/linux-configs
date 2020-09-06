@@ -13,6 +13,8 @@ alias grep='grep --color=auto'
 alias email="if [[ $TERM =~ xterm ]]; then printf \"\033]0;mutt\007\"; fi; mutt"
 alias www="if [[ $TERM =~ xterm ]]; then printf \"\033]0;lynx\007\"; fi; lynx"
 
+# Update packages
+alias update="sudo apt update && sudo apt upgrade"
 
 # Amazon music downloads come in a zip file.  This is a shortcut for unzipping
 # them to a directory where I can process the tags and run mp3gain.
