@@ -8,4 +8,7 @@ git config --global credential.helper "cache --timeout=14400"
 # Ignore files like vim swap files in every repository.
 git config --global core.excludesfile /path/to-this-repo/git/ignore_global
 
+# Don't mess with my line endings
+git config --global core.autocrlf false
+
 # vim: ft=sh
