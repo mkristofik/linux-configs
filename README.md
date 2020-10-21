@@ -20,6 +20,15 @@ fi
 - `sortpics`, utility for sorting image files into directories by date.  Copy
   this to `~/bin` or other directory in your `$PATH`.
 
+### Re-mapping Caps Lock key
+
+To remap the Caps Lock key to something more useful, such as Escape:
+
+- Adjust `nocapslock.sh` if necessary
+- `cp remap-autostart.desktop ~/.config/autostart`
+- Update the autostart copy with the correct path to this repo
+- Logout and log back in
+
 ### Explaining how the prompt is set
 
 I've spent way too much time over the past two days researching how the bash

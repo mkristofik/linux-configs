@@ -1,0 +1,5 @@
+[Desktop Entry]
+Exec=/path/to-this-repo/bash/nocapslock.sh
+Name=Remap CAPS LOCK to Escape
+Type=Application
+Version=1.0
