@@ -2,7 +2,7 @@
 git config --global user.email "email@example.com"
 git config --global user.name "Your Name"
 
-# Save GitHub password for 4 hours.
+# Save GitHub password for 4 hours. (Not available on Windows)
 git config --global credential.helper "cache --timeout=14400"
 
 # Ignore files like vim swap files in every repository.
@@ -10,5 +10,8 @@ git config --global core.excludesfile /path/to-this-repo/git/ignore_global
 
 # Don't mess with my line endings
 git config --global core.autocrlf false
+
+# Auto-prune merged-and-deleted branches on git fetch or pull.
+git config --global remote.origin.prune true
 
 # vim: ft=sh
