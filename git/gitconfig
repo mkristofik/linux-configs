@@ -8,4 +8,7 @@ git config --global core.excludesfile /path/to-this-repo/git/ignore_global
 # Don't mess with my line endings
 git config --global core.autocrlf false
 
+# Auto-prune merged-and-deleted branches on git fetch or pull.
+git config --global remote.origin.prune true
+
 # vim: ft=sh
